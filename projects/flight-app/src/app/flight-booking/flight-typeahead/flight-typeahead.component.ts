@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { timer, Observable, Subscription, Subject } from 'rxjs';
-import { take, takeUntil, switchMap, debounceTime, filter, tap, delay } from 'rxjs/operators';
+import { timer, Observable, Subscription, Subject, interval, combineLatest } from 'rxjs';
+import { take, takeUntil, switchMap, debounceTime, filter, tap, delay, startWith, map, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Flight } from '@flight-workspace/flight-api';
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
@@ -18,22 +18,42 @@ export class FlightTypeaheadComponent implements OnInit, OnDestroy {
   control = new FormControl();
   flights$: Observable<Flight[]>;
   loading: boolean;
+  online$: Observable<boolean>;
+  online: boolean;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     //this.rxjsDemo();
 
-    this.flights$ = this.control
-      .valueChanges
+    this.online$ = interval(2000)
       .pipe(
-        debounceTime(300),
-        filter((value: string) => value.length > 2),
+        startWith(0),
+        map(x => Math.random() < 0.5),
+        distinctUntilChanged(),
+        tap(x => this.online = x)
+      );
+
+    this.flights$ =
+      combineLatest(
+        this.control
+          .valueChanges
+          .pipe(
+            debounceTime(300),
+            filter((value: string) => value.length > 2)
+          ),
+        this.online$
+      )
+      .pipe(
+        filter(([value, online]) => online),
+        map(([value, online]) => value),
+        distinctUntilChanged(),
         tap(() => this.loading = true),
-        delay(3000),
+        //(delay(3000),
         switchMap(value => this.load(value)),
         tap(() => this.loading = false),
       );
+      
   }
 
   load(from: string): Observable<Flight[]>  {
