@@ -1,3 +1,39 @@
-<p>
-  passenger-search works!
-</p>
+<app-tabbed-pane
+  [(activeId)]="activePane"
+  #tp>
+  <app-tab
+    title="Booked"
+    [id]="1">
+    Passagiere mit gebuchten Flügen.
+  </app-tab>
+  <app-tab
+    title="Checked in"
+    [id]="2">
+    Passagiere, die bereits da sind.
+  </app-tab>
+  <app-tab
+    title="Boarded"
+    [id]="3">
+    Passagiere, die bereits im Flieger sind.
+  </app-tab>
+</app-tabbed-pane>
+
+Active Pane: {{ activePane }}
+
+<div>
+  {{ tp.currentTitle }}
+</div>
+
+<div>
+  <button
+    class="btn btn-default"
+    (click)="tp.expand()">
+    Expand
+  </button>
+  <button
+    class="btn btn-default"
+    (click)="tp.collapse()">
+    Collapse
+  </button>
+</div>
+

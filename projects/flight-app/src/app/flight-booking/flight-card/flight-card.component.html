@@ -4,6 +4,7 @@
 
   <div class="header">
     <h2 class="title">{{item.from}} - {{item.to}}</h2>
+    <h2 class="title"><ng-content select=".title"></ng-content></h2>
   </div>
   <div class="content">
     <p>Flight-No.: #{{item.id}}</p>
@@ -29,6 +30,9 @@
       </a>
 
     </p>
+
+    <ng-content></ng-content>
+    <ng-content></ng-content>
 
   </div>
 </div>

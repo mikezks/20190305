@@ -4,6 +4,8 @@ import {NgModule} from '@angular/core';
 import {ModuleWithProviders} from '@angular/core/src/metadata/ng_module';
 import {CityPipe} from './pipes/city.pipe';
 import { TabsModule } from './tabs/tabs.module';
+import { TabComponent } from './components/tab/tab.component';
+import { TabbedPaneComponent } from './components/tabbed-pane/tabbed-pane.component';
 
 @NgModule({
   imports: [
@@ -13,11 +15,15 @@ import { TabsModule } from './tabs/tabs.module';
   ],
   declarations: [
     CityPipe,
+    TabComponent,
+    TabbedPaneComponent,
   ],
   exports: [
     CityPipe,
     CustomCheckboxModule,
-    TabsModule
+    TabsModule,
+    TabComponent,
+    TabbedPaneComponent
   ]
 })
 export class SharedModule {
