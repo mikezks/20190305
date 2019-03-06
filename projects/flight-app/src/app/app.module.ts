@@ -18,11 +18,12 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import { DashboardTileModule } from './dashboard-tile/dashboard-tile.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './+state';
+import { reducers, metaReducers, CustomSerializer } from './+state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './+state/effects/app.effects';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { AppEffects } from './+state/effects/app.effects';
     RouterModule.forRoot([...APP_ROUTES], {...APP_EXTRA_OPTIONS}),
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([ AppEffects ]),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreRouterConnectingModule.forRoot({stateKey: 'router'})
   ],
   declarations: [
     AppComponent,
@@ -53,7 +55,9 @@ import { AppEffects } from './+state/effects/app.effects';
   schemas: [
     // Todo: Add this schema: CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: [],
+  providers: [
+    { provide: RouterStateSerializer, useClass: CustomSerializer }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

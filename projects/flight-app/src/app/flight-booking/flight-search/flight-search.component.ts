@@ -3,7 +3,7 @@ import {FlightService, Flight} from '@flight-workspace/flight-api';
 import { Observable } from 'rxjs';
 import * as fromFlightBooking from '../+state/reducers/flight-booking.reducer';
 import { Store, select } from '@ngrx/store';
-import { FlightsLoadedAction, FlightUpdateAction } from '../+state/actions/flight-booking.actions';
+import { FlightsLoadedAction, FlightUpdateAction, FlightsLoadAction } from '../+state/actions/flight-booking.actions';
 import { first } from 'rxjs/operators';
 
 
@@ -18,9 +18,9 @@ export class FlightSearchComponent implements OnInit {
   to: string = 'Graz'; // in Austria
   urgent: boolean = false;
 
-  get flights() {
+  /* get flights() {
     return this.flightService.flights;
-  }
+  } */
 
   flights$: Observable<Flight[]>;
 
@@ -31,7 +31,7 @@ export class FlightSearchComponent implements OnInit {
   };
 
   constructor(
-    private flightService: FlightService,
+    //private flightService: FlightService,
     private store: Store<fromFlightBooking.FeatureState>) {
   }
 
@@ -48,14 +48,16 @@ export class FlightSearchComponent implements OnInit {
     /* this.flightService
       .load(this.from, this.to, this.urgent); */
 
-    this.flightService
+    /* this.flightService
       .find(this.from, this.to)
       .subscribe(
         flights => this.store.dispatch(
           new FlightsLoadedAction(flights)
         ),
         error => console.error('error', error)
-      )
+      ) */
+
+    this.store.dispatch(new FlightsLoadAction(this.from, this.to))
   }
 
   delay(): void {
