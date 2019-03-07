@@ -86,4 +86,8 @@ export class FlightSearchComponent implements OnInit {
       );
   }
 
+  showAlert() {
+    alert('outside click');
+  }
+
 }

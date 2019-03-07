@@ -6,6 +6,7 @@ import {CityPipe} from './pipes/city.pipe';
 import { TabsModule } from './tabs/tabs.module';
 import { TabComponent } from './components/tab/tab.component';
 import { TabbedPaneComponent } from './components/tabbed-pane/tabbed-pane.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   imports: [
@@ -17,13 +18,15 @@ import { TabbedPaneComponent } from './components/tabbed-pane/tabbed-pane.compon
     CityPipe,
     TabComponent,
     TabbedPaneComponent,
+    ClickOutsideDirective,
   ],
   exports: [
     CityPipe,
     CustomCheckboxModule,
     TabsModule,
     TabComponent,
-    TabbedPaneComponent
+    TabbedPaneComponent,
+    ClickOutsideDirective
   ]
 })
 export class SharedModule {

@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-          <button (click)="search()" [disabled]="!from || !to"
+          <button (click)="search()" (clickOutside)="showAlert()" [disabled]="!from || !to"
             class="btn btn-default">
             Search
           </button>
