@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromFlightBooking from './+state/reducers/flight-booking.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { FlightBookingEffects } from './+state/effects/flight-booking.effects';
+import { AirportComponent } from './airport/airport.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { FlightBookingEffects } from './+state/effects/flight-booking.effects';
     PassengerSearchComponent,
     FlightEditComponent,
     FlightBookingComponent,
-    FlightTypeaheadComponent
+    FlightTypeaheadComponent,
+    AirportComponent
   ],
   providers: [],
   exports: [

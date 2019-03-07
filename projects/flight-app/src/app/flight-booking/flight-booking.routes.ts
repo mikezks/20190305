@@ -4,6 +4,7 @@ import {FlightEditComponent} from './flight-edit/flight-edit.component';
 import {FlightSearchComponent} from './flight-search/flight-search.component';
 import {PassengerSearchComponent} from './passenger-search/passenger-search.component';
 import { FlightTypeaheadComponent } from './flight-typeahead/flight-typeahead.component';
+import { AirportComponent } from './airport/airport.component';
 
 export const FLIGHT_BOOKING_ROUTES: Routes = [
   {
@@ -25,6 +26,10 @@ export const FLIGHT_BOOKING_ROUTES: Routes = [
       {
         path: 'flight-edit/:id',
         component: FlightEditComponent
+      },
+      {
+        path: 'airport',
+        component: AirportComponent
       }
     ]
   }
